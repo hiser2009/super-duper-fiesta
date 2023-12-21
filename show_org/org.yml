@@ -6,6 +6,10 @@
       pip:
         name: meraki
         executable: pip3  # Use pip3 for Python 3
+        
+    - name: Print Environment Variables
+      ansible.builtin.debug:
+        msg: "MERAKI_API_KEY: {{ lookup('env', 'MERAKI_API_KEY') }}"
 
     - name: Get all Organizations
       cisco.meraki.organizations_info:
