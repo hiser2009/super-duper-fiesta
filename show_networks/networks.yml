@@ -2,6 +2,11 @@
 - hosts: localhost
   gather_facts: false
   tasks:
+    - name: Install jmespath library
+      ansible.builtin.package:
+        name: python3-jmespath
+        state: present
+
     - name: Get administered identities for me
       cisco.meraki.administered_identities_me_info:
         meraki_suppress_logging: true
