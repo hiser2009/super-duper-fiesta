@@ -1,0 +1,31 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/python:3.12.1
+
+    steps:
+      - checkout
+
+      # Install Ansible
+      - run:
+          name: Install Ansible
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y ansible
+
+      # Run Ansible playbook
+      - run:
+          name: Run Ansible playbook
+          command: |
+            ansible-playbook -i "localhost," -c local path/to/your/playbook.yml
+          environment:
+            MERAKI_API_KEY: $MERAKI_API_KEY  # Pass the Meraki API key as an environment variable
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          context: meraki_stuff  # Use the 'meraki_stuff' context
