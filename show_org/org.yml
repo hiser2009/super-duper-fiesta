@@ -3,13 +3,12 @@
   gather_facts: false
   tasks:
     - name: Install Meraki SDK
-      pip:
-        name: meraki
-        executable: pip3  # Use pip3 for Python 3
-        
+      ansible.builtin.command:
+        cmd: pip3 install meraki
+
     - name: Print Environment Variables
       ansible.builtin.debug:
-        msg: "MERAKI_API_KEY: {{ lookup('env', 'MERAKI_API_KEY') }}"
+        msg: "MERAKI_API_KEY: {{ lookup('env', 'MERAKI_API_KEY') }}, ORG_ID: {{ lookup('env', 'ORG_ID') }}"
 
     - name: Get all Organizations
       cisco.meraki.organizations_info:
