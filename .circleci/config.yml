@@ -20,8 +20,8 @@ jobs:
       - run:
           name: Run Ansible playbook
           command: ansible-playbook -i "localhost," -c local show_org/org.yml
-          environment:
-            MERAKI_API_KEY: $MERAKI_API_KEY  # Pass the Meraki API key as an environment variable
+          # environment:
+          #   MERAKI_API_KEY: $MERAKI_API_KEY  # Pass the Meraki API key as an environment variable
 
 workflows:
   version: 2
