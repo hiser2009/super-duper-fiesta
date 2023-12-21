@@ -15,7 +15,10 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y ansible
             pip install meraki
-
+            # Install Meraki Ansible collection
+      - run:
+          name: Install Meraki Ansible collection
+          command: ansible-galaxy collection install cisco.meraki
       # Run Ansible playbook
       - run:
           name: Run Ansible playbook
