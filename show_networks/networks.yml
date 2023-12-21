@@ -5,6 +5,7 @@
     - name: Get administered identities for me
       cisco.meraki.administered_identities_me_info:
         meraki_suppress_logging: true
+        meraki_api_key: "{{ lookup('env', 'MERAKI_API_KEY') }}"
       register: me
 
     - name: Show current Meraki administrator
@@ -14,6 +15,7 @@
     - name: Get all Organizations
       cisco.meraki.organizations_info:
         meraki_suppress_logging: true
+        meraki_api_key: "{{ lookup('env', 'MERAKI_API_KEY') }}"
       register: result
 
     - name: Show Organizations List
