@@ -2,6 +2,11 @@
 - hosts: localhost
   gather_facts: false
   tasks:
+    - name: Install Meraki SDK
+      pip:
+        name: meraki
+        executable: pip3  # Use pip3 for Python 3
+
     - name: Get all Organizations
       cisco.meraki.organizations_info:
         meraki_suppress_logging: false
