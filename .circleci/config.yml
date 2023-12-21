@@ -17,6 +17,9 @@ jobs:
 
       # Run Ansible playbook
       - run:
+          name: Install Meraki SDK
+          command: pip install meraki
+      - run:
           name: Install Meraki Ansible collection
           command: ansible-galaxy collection install cisco.meraki
       - run:
