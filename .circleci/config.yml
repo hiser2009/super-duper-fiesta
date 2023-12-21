@@ -16,11 +16,14 @@ jobs:
             sudo apt-get install -y ansible
       # Run Ansible playbook
       - run:
-          name: Run Ansible playbook
-          command: |
-            ansible-galaxy collection install cisco.meraki
-            pip install meraki 
-            ansible-playbook -i "localhost," -c local show_org/org.yml
+          name: Check Version
+          command: ansible --version
+      # - run:
+      #     name: Run Ansible playbook
+      #     command: |
+      #       ansible-galaxy collection install cisco.meraki
+      #       pip install meraki 
+      #       ansible-playbook -i "localhost," -c local show_org/org.yml
           environment:
             MERAKI_API_KEY: $MERAKI_API_KEY  # Pass the Meraki API key as an environment variable
             ORG_ID: $ORG_ID
