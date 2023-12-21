@@ -14,19 +14,13 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt-get install -y ansible
-            pip install meraki
-            ansible-galaxy collection install cisco.meraki
+            pip install meraki -t ~/.ansible/collections/ansible_collections/cisco/meraki
 
       # Run Ansible playbook
       - run:
           name: Run Ansible playbook
           command: ansible-playbook -i "localhost," -c local show_org/org.yml
           environment:
-            MERAKI_API_KEY: $MERAKI_API_KEY  # Pass the Meraki API key as an environment variable
-
-workflows:
-  version: 2
-  build:
-    jobs:
-      - build:
-          context: meraki_stuff  # Use the 'meraki_stuff' context
+            MERAKI_API_KEY: <<pipeline.contexts.meraki_stuff.MERAKI_API_KEY>>  # Reference the Meraki API key from the context
+            ANSIBLE_COLLECTIONS_PATH: ~/.ansible/collections
+            ORG_ID: <<pipeline.contexts.meraki_stuff.ORG_ID>>  # Reference the ORG_ID from the context
