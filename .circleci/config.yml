@@ -8,30 +8,22 @@ jobs:
     steps:
       - checkout
 
-      # Install Ansible and Meraki SDK
+      # Install the latest version of Ansible
       - run:
-          name: Install Ansible and Meraki SDK
+          name: Install Ansible
           command: |
             sudo apt-get update
+            sudo apt-get install -y software-properties-common
+            sudo apt-add-repository --yes --update ppa:ansible/ansible
             sudo apt-get install -y ansible
+
       # Run Ansible playbook
       - run:
-          name: Check Version
-          command: ansible --version
-      # - run:
-      #     name: Run Ansible playbook
-      #     command: |
-      #       ansible-galaxy collection install cisco.meraki
-      #       pip install meraki 
-      #       ansible-playbook -i "localhost," -c local show_org/org.yml
+          name: Run Ansible playbook
+          command: |
+            ansible-playbook -i "localhost," -c local show_org/org.yml
           environment:
             MERAKI_API_KEY: $MERAKI_API_KEY  # Pass the Meraki API key as an environment variable
-            ORG_ID: $ORG_ID
-      # - run:
-      #     name: Run Ansible playbook
-      #     command: ansible-playbook -i "localhost," -c local show_org/org.yml
-      #     environment:
-      #       MERAKI_API_KEY: $MERAKI_API_KEY  # Pass the Meraki API key as an environment variable
 
 workflows:
   version: 2
