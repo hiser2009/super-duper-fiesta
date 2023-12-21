@@ -3,26 +3,23 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: cimg/python:3.12.1
+      - image: ubuntu:latest  # Use the latest Ubuntu image
 
     steps:
       - checkout
 
-      # Install the latest version of Ansible
+      # Install Ansible and other dependencies
       - run:
-          name: Install Ansible
+          name: Install dependencies
           command: |
-            sudo apt-get update
-            sudo apt-get install -y software-properties-common
-            sudo apt-add-repository --yes --update ppa:ansible/ansible
-            sudo apt-get install -y ansible
+            apt-get update
+            apt-get install -y python3-pip  # Install Python and pip
+            pip3 install ansible meraki  # Install Ansible and Meraki SDK
 
       # Run Ansible playbook
       - run:
           name: Run Ansible playbook
-          command: |
-            pip install meraki
-            ansible-playbook -i "localhost," -c local show_org/org.yml
+          command: ansible-playbook -i "localhost," -c local show_org/org.yml
           environment:
             MERAKI_API_KEY: $MERAKI_API_KEY  # Pass the Meraki API key as an environment variable
 
